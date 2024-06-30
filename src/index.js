@@ -1,41 +1,52 @@
 import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import App from './App'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import App from './App';
 import './index.css';
 import HomePage from './pages/HomePage';
 import AuthPage from './pages/AuthPage';
-import ProfilePage from './pages/ProfilePage';
 import { AuthContextProvider } from './store/auth-context';
 import PrortectedRoute from './components/Auth/ProtecetdRoute';
-
+import MyRequestsPage from './pages/MyRequestsPage';
+import NewRequestPage from './pages/NewRequestPage';
+import RequestsPage from './pages/RequeatsPage';
 
 const router = createBrowserRouter([
   {
-    element: <App/>,
-    children:[
+    element: <App />,
+    children: [
       {
-        path: "/",
-        element: <HomePage/>
+        path: '/',
+        element: <HomePage />,
       },
       {
-        path: "/auth",
-        element:( 
-        <PrortectedRoute isProtected={false}>
-          <AuthPage/>
-        </PrortectedRoute>
-      )},
+        path: '/auth',
+        element: (
+          <PrortectedRoute isProtected={false}>
+            <AuthPage />
+          </PrortectedRoute>
+        ),
+      },
       {
-        path: '/profile',
+        path: '/requests',
         element: (
           <PrortectedRoute isProtected={true}>
-            <ProfilePage/>
+            <RequestsPage />
           </PrortectedRoute>
-          )
-      }
-    ]
-  }
+        ),
+        children: [
+          {
+            path: 'my-requests',
+            element: <MyRequestsPage />,
+          },
+          {
+            path: 'new-request',
+            element: <NewRequestPage />,
+          },
+        ],
+      },
+    ],
+  },
 ]);
-
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

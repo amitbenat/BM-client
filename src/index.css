@@ -2,13 +2,14 @@
 
 * {
   box-sizing: border-box;
-  
 }
 
 body {
   font-family: 'Open Sans', 'Lato', sans-serif;
   margin: 0;
   background-color: #cdcdcd;
+  display: flex;
+  flex-direction: column;
 }
 
 h1,
