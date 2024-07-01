@@ -17,7 +17,7 @@ const MainNavBar = () => {
     <header className="mainnavbarheader">
       <nav>
         <ul>
-          {isAdmin && (
+          {isAdmin  && (
             <li>
               <Link to="/admin">צד המאסטר זה אני ואתן לא</Link>
             </li>
