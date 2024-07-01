@@ -41,7 +41,6 @@ const AuthForm = () => {
     axios
       .post(url, currentUserDetails)
       .then((res) => {
-        console.log(res);
         setIsLoading(false);
         authCtx.login(res.data.token, res.data.user.isAdmin);
         navigate('/');

@@ -17,11 +17,6 @@ const MainNavBar = () => {
     <header className="mainnavbarheader">
       <nav>
         <ul>
-          {isAdmin  && (
-            <li>
-              <Link to="/admin">צד המאסטר זה אני ואתן לא</Link>
-            </li>
-          )}
           {!isLoggedIn && (
             <li>
               <Link to="/auth">התחברות</Link>
@@ -33,9 +28,14 @@ const MainNavBar = () => {
                 <button onClick={logoutHandler}>התנתקות</button>
               </li>
               <li>
-                <Link to="/requests">בקשות</Link>
+                <Link to="/requests/my-requests">בקשות</Link>
               </li>
             </>
+          )}
+          {isAdmin  && (
+            <li>
+              <Link to="/admin">צד המאסטר זה אני ואתן לא</Link>
+            </li>
           )}
         </ul>
       </nav>
