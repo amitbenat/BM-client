@@ -18,10 +18,10 @@
 
 .requestnavbarheader li {
   margin: 0 2rem;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  /* box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2); */
 }
 
-.requestnavbarheader a {
+.requestnavbarheader a, select, option {
   padding: 1rem;
   border-radius: 30px;
   background-color: rgb(150, 150, 184);
