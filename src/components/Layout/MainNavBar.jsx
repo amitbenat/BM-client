@@ -8,6 +8,7 @@ const MainNavBar = () => {
   const authCtx = useContext(AuthContext);
 
   const isLoggedIn = authCtx.isLoggedIn;
+  const isAdmin = authCtx.isAdmin;
 
   const logoutHandler = () => {
     authCtx.logout();
@@ -16,6 +17,11 @@ const MainNavBar = () => {
     <header className="mainnavbarheader">
       <nav>
         <ul>
+          {isAdmin && (
+            <li>
+              <Link to="/admin">צד המאסטר זה אני ואתן לא</Link>
+            </li>
+          )}
           {!isLoggedIn && (
             <li>
               <Link to="/auth">התחברות</Link>
