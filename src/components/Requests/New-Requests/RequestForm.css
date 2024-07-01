@@ -1,0 +1,68 @@
+.requestformcard {
+  width: 35rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.requestformform {
+  position: relative;
+}
+
+.requestformloading {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.requestformcontrol {
+  margin-bottom: 0.5rem;
+}
+
+.requestformcontrol label {
+  text-align: right;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.requestformcontrol input,
+.requestformcontrol textarea {
+  font: inherit;
+  padding: 0.35rem;
+  border-radius: 4px;
+  background-color: #f0f0f0;
+  border: 1px solid #2e663b;
+  display: block;
+  width: 30rem;
+  font-size: 1rem;
+  max-width: 30rem;
+  min-width: 30rem;
+  direction: rtl;
+}
+
+.requestformcontrol input:focus,
+.requestformcontrol textarea:focus {
+  background-color: #b0ceb6;
+  outline-color: rgb(23, 71, 32);
+}
+
+.requestformactions {
+  text-align: left;
+}
+
+.requestformactions button {
+  border-radius: 14px;
+  font: inherit;
+  background-color: #a4c8ab;
+  outline-color: rgb(22, 51, 27);
+  font-size: 1rem;
+}
+
+.requestformactions button:hover {
+  background-color: #c5dbc9;
+}
