@@ -1,5 +1,72 @@
+import { useContext, useEffect, useState } from 'react';
+import RequestsList from '../components/Requests/My-Requests/RequestsList';
+import Card from '../components/UI/Card';
+import AuthContext from '../store/auth-context';
+import axios from 'axios';
+import LoadingSpinner from '../components/UI/LoadingSpinner';
+
 const MyRequestsPage = () => {
-  return <p>my request</p>;
+  const [isLoading, setIsLoading] = useState(false);
+  const [openArray, setOpenArray] = useState([])
+  const [closeArray, setCloseArray] = useState([])
+
+  const authCtx = useContext(AuthContext);
+  useEffect(() => {
+    setIsLoading(true);
+    let url = `http://localhost:8080/requests`;
+    axios
+      .get(url, {
+        headers: {
+          Authorization: `Bearer ${authCtx.token}`,
+        },
+      })
+      .then((res) => {
+        setIsLoading(false);
+        console.log(res.data);
+        const tempOpenArray = [];
+        const tempCloseArray = [];
+
+        res.data.forEach(item => {
+          if (item.status === 'pending') {
+            tempOpenArray.push(item);
+          } else {
+            tempCloseArray.push(item);
+          }
+        });
+
+        setOpenArray(tempOpenArray);
+        setCloseArray(tempCloseArray);
+        return res.data;
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        console.log(err.response.data);
+        alert(err.response.data);
+      });
+  }, [authCtx.token]);
+  return (
+    <>
+      {isLoading && (
+        <div className="requestformloading">
+          <LoadingSpinner />
+        </div>
+      )}
+      {!isLoading && (
+        <>
+          <br/>
+          <Card>
+            <h3>בקשות פתוחות</h3>
+            <RequestsList requestArray={openArray} isOpen={true}/>
+          </Card>
+          <br/>
+          <Card>
+            <h3>בקשות סגורות</h3>
+            <RequestsList requestArray={closeArray} isOpen={false}/>
+          </Card>
+        </>
+      )}
+    </>
+  );
 };
 
 export default MyRequestsPage;

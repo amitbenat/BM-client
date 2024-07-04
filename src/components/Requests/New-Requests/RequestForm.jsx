@@ -70,7 +70,9 @@ const RequestForm = (props) => {
               <div className="requestformcontrol">
                 {props.requestType === 'בקשת אישור כניסה רגלי/רכוב לבה"ד' && (
                   <>
-                    <label htmlFor="type">:סוג אישור כניסה</label>
+                    <label htmlFor="type">סוג אישור כניסה:</label>
+                    <div className='requestformentertype'>
+
                     <input
                       type="radio"
                       id="walk"
@@ -78,9 +80,8 @@ const RequestForm = (props) => {
                       value="walk"
                       checked={selectedOption === 'walk'}
                       onChange={changeHandler}
-                    />
+                      />
                     <label htmlFor="walk">רגלי</label>
-                    <br />
                     <input
                       type="radio"
                       id="drive"
@@ -88,14 +89,13 @@ const RequestForm = (props) => {
                       value="drive"
                       checked={selectedOption === 'drive'}
                       onChange={changeHandler}
-                    />
+                      />
                     <label htmlFor="drive">רכוב</label>
-                    <br />
-                    <br />
+                      </div>
                   </>
                 )}
 
-                <label htmlFor="description">:תיאור סיבת הבקשה</label>
+                <label htmlFor="description">תיאור סיבת הבקשה:</label>
                 <textarea
                   type="text"
                   id="description"

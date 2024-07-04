@@ -15,6 +15,9 @@ const MainNavBar = () => {
   };
   return (
     <header className="mainnavbarheader">
+      <Link to="/">
+        <div className="mainnavbarlogo"> מערך בטחון המידע</div>
+      </Link>
       <nav>
         <ul>
           {!isLoggedIn && (
@@ -22,26 +25,23 @@ const MainNavBar = () => {
               <Link to="/auth">התחברות</Link>
             </li>
           )}
-          {isLoggedIn && (
-            <>
-              <li>
-                <button onClick={logoutHandler}>התנתקות</button>
-              </li>
-              <li>
-                <Link to="/requests/my-requests">בקשות</Link>
-              </li>
-            </>
-          )}
-          {isAdmin  && (
+          {isAdmin && (
             <li>
               <Link to="/admin">צד המאסטר זה אני ואתן לא</Link>
             </li>
           )}
+          {isLoggedIn && (
+            <>
+              <li>
+                <Link to="/requests/my-requests">בקשות</Link>
+              </li>
+              <li>
+                <button onClick={logoutHandler}>התנתקות</button>
+              </li>
+            </>
+          )}
         </ul>
       </nav>
-      <Link to="/">
-        <div className="mainnavbarlogo"> מערך בטחון המידע</div>
-      </Link>
     </header>
   );
 };
