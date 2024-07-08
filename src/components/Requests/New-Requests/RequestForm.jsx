@@ -18,12 +18,12 @@ const RequestForm = (props) => {
   };
   function submitFormHandler(event) {
     event.preventDefault();
-    let type = props.requestType
+    let type = props.requestType;
     if (selectedOption) {
       if (selectedOption === 'drive') {
-        type ='בקשת אישור כניסה רכוב'
-      }else{
-        type ='בקשת אישור כניסה רגלי'
+        type = 'בקשת אישור כניסה רכוב';
+      } else {
+        type = 'בקשת אישור כניסה רגלי';
       }
     }
     const enteredDescription = descriptionInputRef.current.value;
@@ -71,27 +71,26 @@ const RequestForm = (props) => {
                 {props.requestType === 'בקשת אישור כניסה רגלי/רכוב לבה"ד' && (
                   <>
                     <label htmlFor="type">סוג אישור כניסה:</label>
-                    <div className='requestformentertype'>
-
-                    <input
-                      type="radio"
-                      id="walk"
-                      name="transportation"
-                      value="walk"
-                      checked={selectedOption === 'walk'}
-                      onChange={changeHandler}
+                    <div className="requestformentertype">
+                      <input
+                        type="radio"
+                        id="walk"
+                        name="transportation"
+                        value="walk"
+                        checked={selectedOption === 'walk'}
+                        onChange={changeHandler}
                       />
-                    <label htmlFor="walk">רגלי</label>
-                    <input
-                      type="radio"
-                      id="drive"
-                      name="transportation"
-                      value="drive"
-                      checked={selectedOption === 'drive'}
-                      onChange={changeHandler}
+                      <label htmlFor="walk">רגלי</label>
+                      <input
+                        type="radio"
+                        id="drive"
+                        name="transportation"
+                        value="drive"
+                        checked={selectedOption === 'drive'}
+                        onChange={changeHandler}
                       />
-                    <label htmlFor="drive">רכוב</label>
-                      </div>
+                      <label htmlFor="drive">רכוב</label>
+                    </div>
                   </>
                 )}
 

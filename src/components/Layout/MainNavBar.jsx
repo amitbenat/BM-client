@@ -27,7 +27,7 @@ const MainNavBar = () => {
           )}
           {isAdmin && (
             <li>
-              <Link to="/admin">צד המאסטר זה אני ואתן לא</Link>
+              <Link to="/admin/open-requests">ניהול בקשות</Link>
             </li>
           )}
           {isLoggedIn && (
