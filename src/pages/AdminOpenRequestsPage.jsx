@@ -4,18 +4,29 @@ import Card from '../components/UI/Card';
 import AuthContext from '../store/auth-context';
 import axios from 'axios';
 import LoadingSpinner from '../components/UI/LoadingSpinner';
-import './AdminOpenRequestsPage.css'
+import './AdminOpenRequestsPage.css';
+import AdminRejectDescription from '../components/Admin/AdminRejectDescription';
 
 const AdminOpenRequestsPage = () => {
+  const [isRejectDescriptionOpen, setIsRejectDescriptionOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [requestsArray, setRequestsArray] = useState([]);
   const [requestTypeFilter, setRequestTypeFilter] = useState('הכל');
+  const [chosenRequestId, setChosenRequestId] = useState('');
 
   const authCtx = useContext(AuthContext);
   const onChangeHandler = (event) => {
-    setRequestTypeFilter(event.target.value)
+    setRequestTypeFilter(event.target.value);
     console.log(event.target.value);
-  }
+  };
+
+  const openRejectHandler = () => {
+    setIsRejectDescriptionOpen(true);
+  };
+
+  const closeRejectHandler = () => {
+    setIsRejectDescriptionOpen(false);
+  };
 
   useEffect(() => {
     setIsLoading(true);
@@ -48,15 +59,19 @@ const AdminOpenRequestsPage = () => {
         <>
           <br />
           <Card>
-            <div className='adminopencontrol'>
+            <div className="adminopencontrol">
               <h3>בקשות פתוחות לאישור קב"מ</h3>
-              <select onChange={onChangeHandler} value={requestTypeFilter} dir="rtl">
+              <select
+                onChange={onChangeHandler}
+                value={requestTypeFilter}
+                dir="rtl"
+              >
                 <option value="הכל">הכל</option>
                 <option value="בקשת השחרה">בקשת השחרה</option>
-                <option value='בקשת אישור כניסה רגלי'>
+                <option value="בקשת אישור כניסה רגלי">
                   בקשת אישור כניסה רגלי
                 </option>
-                <option value='בקשת אישור כניסה רכוב'>
+                <option value="בקשת אישור כניסה רכוב">
                   בקשת אישור כניסה רכוב
                 </option>
                 <option value="בקשת קידוד חוגר">בקשת קידוד חוגר</option>
@@ -66,8 +81,22 @@ const AdminOpenRequestsPage = () => {
               </select>
             </div>
 
-            <RequestsList requestArray={requestsArray} tableType="open-admin" />
+            <RequestsList
+              openRejectHandler={openRejectHandler}
+              setRequestsArray={setRequestsArray}
+              requestArray={requestsArray}
+              tableType="open-admin"
+              setChosenRequestId={setChosenRequestId}
+            />
           </Card>
+          {isRejectDescriptionOpen && (
+            <AdminRejectDescription
+            requestsArray={requestsArray}
+              setRequestsArray={setRequestsArray}
+              chosenRequestId={chosenRequestId}
+              onClose={closeRejectHandler}
+            />
+          )}
         </>
       )}
     </>

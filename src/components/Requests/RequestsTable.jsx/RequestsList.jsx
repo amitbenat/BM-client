@@ -1,6 +1,8 @@
 import RequestItem from './RequestItem';
 import './RequestsList.css';
 const RequestsList = (props) => {
+
+  
   return (
     <>
       {props.requestArray.length === 0 && <p>אין בקשות מסוג זה!</p>}
@@ -19,18 +21,25 @@ const RequestsList = (props) => {
               </tr>
             </thead>
             <tbody>
-              {props.requestArray.map((request) => (
-                <RequestItem
-                  id={request.id}
-                  type={request.type}
-                  description={request.description}
-                  date={request.createdAt}
-                  isValid={request.isValid}
-                  tableType={props.tableType}
-                  reasonIfNeeded={request.reasonIfNeeded}
-                  email={request.owner.email}
-                />
-              ))}
+              {props.requestArray.map((request) => {
+                return (
+                  <RequestItem
+                    key={request._id}
+                    id={request._id}
+                    type={request.type}
+                    description={request.description}
+                    date={request.createdAt}
+                    isValid={request.isValid}
+                    tableType={props.tableType}
+                    reasonIfNeeded={request.reasonIfNeeded}
+                    email={request.owner.email}
+                    setRequestsArray={props.setRequestsArray}
+                    requestArray={props.requestArray}
+                    openRejectHandler={props.openRejectHandler}
+                    setChosenRequestId={props.setChosenRequestId}
+                  />
+                );
+              })}
             </tbody>
           </table>
         </div>
