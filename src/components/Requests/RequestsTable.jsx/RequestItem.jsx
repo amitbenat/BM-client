@@ -11,32 +11,38 @@ const RequestItem = (props) => {
   const acceptHandler = () => {
     AdminUpdateRequest(true, props.id, authCtx);
     props.setRequestsArray(
-      props.requestArray.filter((req) => req._id.toString() !== props.id)
+      props.requestsArray.filter((req) => req._id.toString() !== props.id)
     );
   };
 
   const rejectHandler = () => {
-    props.openRejectHandler()
-    props.setChosenRequestId(props.id)
+    props.openRejectHandler();
+    props.setChosenRequestId(props.id);
   };
 
   return (
     <tr key={props.id}>
-      {props.tableType === 'open-admin' && <td>{props.email}</td>}
+      {(props.tableType === 'open-admin' ||
+        props.tableType === 'history-admin') && <td>{props.email}</td>}
       <td>{props.type}</td>
       <td>{props.description}</td>
       <td>{date}</td>
       {props.tableType !== 'open-admin' && (
         <td>
-          {props.tableType === 'open-client'
+          {props.status === 'pending'
             ? 'ממתין...'
             : props.isValid
             ? 'אושר'
             : 'נדחה'}
         </td>
       )}
-      {props.tableType === 'close-client' && (
-        <td>{props.isValid ? '-----' : props.reasonIfNeeded}</td>
+      {(props.tableType === 'close-client' ||
+        props.tableType === 'history-admin') && (
+        <td>
+          {props.isValid === true || props.status === 'pending'
+            ? '-----'
+            : props.reasonIfNeeded}
+        </td>
       )}
       {props.tableType === 'open-admin' && (
         <td>

@@ -8,12 +8,19 @@ const AdminRejectDescription = (props) => {
   const authCtx = useContext(AuthContext);
 
   const submitFormHandler = () => {
-    AdminUpdateRequest(false, props.chosenRequestId, authCtx, descriptionInputRef.current.value)
-    props.onClose()
-    props.setRequestsArray(
-      props.requestsArray.filter((req) => req._id.toString() !== props.chosenRequestId)
+    AdminUpdateRequest(
+      false,
+      props.chosenRequestId,
+      authCtx,
+      descriptionInputRef.current.value
     );
-  }
+    props.onClose();
+    props.setRequestsArray(
+      props.requestsArray.filter(
+        (req) => req._id.toString() !== props.chosenRequestId
+      )
+    );
+  };
   return (
     <Modal onClose={props.onClose}>
       <button onClick={props.onClose}>X</button>

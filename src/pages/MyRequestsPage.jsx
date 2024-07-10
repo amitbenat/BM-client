@@ -39,7 +39,6 @@ const MyRequestsPage = () => {
       })
       .catch((err) => {
         setIsLoading(false);
-        console.log(err.response.data);
         alert(err.response.data);
       });
   }, [authCtx.token]);
@@ -55,12 +54,12 @@ const MyRequestsPage = () => {
           <br />
           <Card>
             <h3>בקשות פתוחות</h3>
-            <RequestsList requestArray={openArray} tableType="open-client" />
+            <RequestsList requestsArray={openArray} tableType="open-client" />
           </Card>
           <br />
           <Card>
             <h3>בקשות סגורות</h3>
-            <RequestsList requestArray={closeArray} tableType="close-client" />
+            <RequestsList requestsArray={closeArray} tableType="close-client" />
           </Card>
         </>
       )}

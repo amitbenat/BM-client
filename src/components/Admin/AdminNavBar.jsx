@@ -2,8 +2,6 @@ import { Link } from 'react-router-dom';
 import './AdminNavBar.css';
 
 const RequestsNavBar = (props) => {
-
-
   return (
     <header className="requestnavbarheader">
       <nav>

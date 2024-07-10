@@ -17,7 +17,6 @@ const AdminOpenRequestsPage = () => {
   const authCtx = useContext(AuthContext);
   const onChangeHandler = (event) => {
     setRequestTypeFilter(event.target.value);
-    console.log(event.target.value);
   };
 
   const openRejectHandler = () => {
@@ -84,14 +83,14 @@ const AdminOpenRequestsPage = () => {
             <RequestsList
               openRejectHandler={openRejectHandler}
               setRequestsArray={setRequestsArray}
-              requestArray={requestsArray}
+              requestsArray={requestsArray}
               tableType="open-admin"
               setChosenRequestId={setChosenRequestId}
             />
           </Card>
           {isRejectDescriptionOpen && (
             <AdminRejectDescription
-            requestsArray={requestsArray}
+              requestsArray={requestsArray}
               setRequestsArray={setRequestsArray}
               chosenRequestId={chosenRequestId}
               onClose={closeRejectHandler}

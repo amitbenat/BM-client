@@ -50,7 +50,6 @@ const RequestForm = (props) => {
       })
       .catch((err) => {
         setIsLoading(false);
-        console.log(err.response.data);
         alert(err.response.data);
       });
   }

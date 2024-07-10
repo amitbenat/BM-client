@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 export const AdminUpdateRequest = (isAccept, id, authCtx, desc) => {
-
   let currentRequestDetails = {
     status: 'closed',
     isValid: true,
@@ -22,11 +21,9 @@ export const AdminUpdateRequest = (isAccept, id, authCtx, desc) => {
       },
     })
     .then((res) => {
-      console.log(res.data);
       return res.data;
     })
     .catch((err) => {
-      console.log(err);
       alert(err);
     });
 };
