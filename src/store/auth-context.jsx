@@ -14,31 +14,33 @@ const retrieveStoredToken = () => {
 
   return {
     token: storedToken,
-    isAdmin: storedAdmin
+    isAdmin: storedAdmin,
   };
 };
 
 export const AuthContextProvider = (props) => {
   const tokenData = retrieveStoredToken();
   let initiallToken;
+  let initiallAdmin;
   if (tokenData) {
     initiallToken = tokenData.token;
+    initiallAdmin = tokenData.isAdmin === 'true';
   }
   const [token, setToken] = useState(initiallToken);
-  const [isAdmin, setIsAdmin] = useState(tokenData.isAdmin);
+  const [isAdmin, setIsAdmin] = useState(initiallAdmin);
   const userIsLoggedIn = !!token;
 
   const logoutHandler = useCallback(() => {
     setToken(null);
-    setIsAdmin(null)
+    setIsAdmin(null);
     localStorage.removeItem('token');
     localStorage.removeItem('isAdmin');
   }, []);
 
   const loginHandler = (token, isAdmin) => {
     setToken(token);
-    setIsAdmin(isAdmin)
-    localStorage.setItem('isAdmin', isAdmin)
+    setIsAdmin(isAdmin);
+    localStorage.setItem('isAdmin', isAdmin);
     localStorage.setItem('token', token);
   };
 

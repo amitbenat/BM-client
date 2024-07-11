@@ -10,6 +10,7 @@ body {
   background-color: #cdcdcd;
   display: flex;
   flex-direction: column;
+  direction: rtl;
 }
 
 h1,

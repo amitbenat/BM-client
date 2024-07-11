@@ -6,11 +6,11 @@ const RequestsNavBar = (props) => {
 
   const newRequestHandler = (event) => {
     const requestType = event.target.value;
-    props.setRequestType(requestType); 
+    props.setRequestType(requestType);
     if (requestType) {
-      navigate('/requests/new-request')
+      navigate('/requests/new-request');
     }
-  }
+  };
   return (
     <header className="requestnavbarheader">
       <nav>
@@ -19,14 +19,16 @@ const RequestsNavBar = (props) => {
             <Link to="/requests/my-requests">הבקשות שלי</Link>
           </li>
           <li>
-            <select value="בקשה חדשה" onChange={newRequestHandler}>
-              <option value="d">
-                בקשה חדשה
-              </option>
+            <select value="בקשה חדשה" onChange={newRequestHandler} dir="rtl">
+              <option>בקשה חדשה</option>
               <option value="בקשת השחרה">בקשת השחרה</option>
-              <option value='בקשת אישור כניסה רגלי/רכוב לבה"ד'>בקשת אישור כניסה רגלי/רכוב לבה"ד</option>
+              <option value='בקשת אישור כניסה רגלי/רכוב לבה"ד'>
+                בקשת אישור כניסה רגלי/רכוב לבה"ד
+              </option>
               <option value="בקשת קידוד חוגר">בקשת קידוד חוגר</option>
-              <option value='בקשת טופס חתימה על שו"ס'>בקשת טופס חתימה על שו"ס</option>
+              <option value='בקשת טופס חתימה על שו"ס'>
+                בקשת טופס חתימה על שו"ס
+              </option>
             </select>
           </li>
         </ul>

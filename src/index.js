@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
 import App from './App';
 import './index.css';
 import HomePage from './pages/HomePage';
@@ -9,6 +9,10 @@ import PrortectedRoute from './components/Auth/ProtecetdRoute';
 import MyRequestsPage from './pages/MyRequestsPage';
 import NewRequestPage from './pages/NewRequestPage';
 import RequestsPage from './pages/RequeatsPage';
+import AdminRequestsPage from './pages/AdminRequestsPage';
+import AdminOpenRequestsPage from './pages/AdminOpenRequestsPage';
+import AdminHistoryRequestPage from './pages/AdminHistoryRequestPage';
+import ProfilePage from './pages/ProfilePage';
 
 const router = createBrowserRouter([
   {
@@ -19,12 +23,34 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
+        path: '/profile',
+        element: <ProfilePage />,
+      },
+      {
         path: '/auth',
         element: (
           <PrortectedRoute isProtected={false}>
             <AuthPage />
           </PrortectedRoute>
         ),
+      },
+      {
+        path: '/admin',
+        element: (
+          <PrortectedRoute isProtected={true} isForAdmin={true}>
+            <AdminRequestsPage />
+          </PrortectedRoute>
+        ),
+        children: [
+          {
+            path: 'open-requests',
+            element: <AdminOpenRequestsPage />,
+          },
+          {
+            path: 'request-history',
+            element: <AdminHistoryRequestPage />,
+          },
+        ],
       },
       {
         path: '/requests',
@@ -43,6 +69,10 @@ const router = createBrowserRouter([
             element: <NewRequestPage />,
           },
         ],
+      },
+      {
+        path: '*',
+        element: <Navigate to='/'/>,
       },
     ],
   },
