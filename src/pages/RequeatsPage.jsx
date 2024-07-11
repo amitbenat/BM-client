@@ -7,8 +7,11 @@ const RequestsPage = () => {
 
   return (
     <>
-      <RequestsNavBar setRequestType={setSelectedRequestType} requestType={selectedRequestType}/>
-      <Outlet context={[selectedRequestType, setSelectedRequestType]}/>
+      <RequestsNavBar
+        setRequestType={setSelectedRequestType}
+        requestType={selectedRequestType}
+      />
+      <Outlet context={[selectedRequestType, setSelectedRequestType]} />
     </>
   );
 };

@@ -9,6 +9,9 @@ import PrortectedRoute from './components/Auth/ProtecetdRoute';
 import MyRequestsPage from './pages/MyRequestsPage';
 import NewRequestPage from './pages/NewRequestPage';
 import RequestsPage from './pages/RequeatsPage';
+import AdminRequestsPage from './pages/AdminRequestsPage';
+import AdminOpenRequestsPage from './pages/AdminOpenRequestsPage';
+import AdminHistoryRequestPage from './pages/AdminHistoryRequestPage';
 
 const router = createBrowserRouter([
   {
@@ -25,6 +28,24 @@ const router = createBrowserRouter([
             <AuthPage />
           </PrortectedRoute>
         ),
+      },
+      {
+        path: '/admin',
+        element: (
+          <PrortectedRoute isProtected={true} isForAdmin={true}>
+            <AdminRequestsPage />
+          </PrortectedRoute>
+        ),
+        children: [
+          {
+            path: 'open-requests',
+            element: <AdminOpenRequestsPage />,
+          },
+          {
+            path: 'request-history',
+            element: <AdminHistoryRequestPage />,
+          },
+        ],
       },
       {
         path: '/requests',

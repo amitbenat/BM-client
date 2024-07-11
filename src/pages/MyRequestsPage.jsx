@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import RequestsList from '../components/Requests/My-Requests/RequestsList';
+import RequestsList from '../components/Requests/RequestsTable.jsx/RequestsList';
 import Card from '../components/UI/Card';
 import AuthContext from '../store/auth-context';
 import axios from 'axios';
@@ -7,8 +7,8 @@ import LoadingSpinner from '../components/UI/LoadingSpinner';
 
 const MyRequestsPage = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [openArray, setOpenArray] = useState([])
-  const [closeArray, setCloseArray] = useState([])
+  const [openArray, setOpenArray] = useState([]);
+  const [closeArray, setCloseArray] = useState([]);
 
   const authCtx = useContext(AuthContext);
   useEffect(() => {
@@ -22,11 +22,10 @@ const MyRequestsPage = () => {
       })
       .then((res) => {
         setIsLoading(false);
-        console.log(res.data);
         const tempOpenArray = [];
         const tempCloseArray = [];
 
-        res.data.forEach(item => {
+        res.data.forEach((item) => {
           if (item.status === 'pending') {
             tempOpenArray.push(item);
           } else {
@@ -40,7 +39,6 @@ const MyRequestsPage = () => {
       })
       .catch((err) => {
         setIsLoading(false);
-        console.log(err.response.data);
         alert(err.response.data);
       });
   }, [authCtx.token]);
@@ -53,15 +51,15 @@ const MyRequestsPage = () => {
       )}
       {!isLoading && (
         <>
-          <br/>
+          <br />
           <Card>
             <h3>בקשות פתוחות</h3>
-            <RequestsList requestArray={openArray} isOpen={true}/>
+            <RequestsList requestsArray={openArray} tableType="open-client" />
           </Card>
-          <br/>
+          <br />
           <Card>
             <h3>בקשות סגורות</h3>
-            <RequestsList requestArray={closeArray} isOpen={false}/>
+            <RequestsList requestsArray={closeArray} tableType="close-client" />
           </Card>
         </>
       )}
