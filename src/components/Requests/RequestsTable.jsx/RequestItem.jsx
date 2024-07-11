@@ -45,7 +45,7 @@ const RequestItem = (props) => {
         </td>
       )}
       {props.tableType === 'open-admin' && (
-        <td>
+        <td className='requestitem'>
           <button className="accept" onClick={acceptHandler}>
             אישור
           </button>

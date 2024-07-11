@@ -1,17 +1,18 @@
-import { Link } from 'react-router-dom';
-
+import { Link, useNavigate } from 'react-router-dom';
+import profileIcon from '../../utils/profileIcon.png'
 import './MainNavBar.css';
 import { useContext } from 'react';
 import AuthContext from '../../store/auth-context';
 
 const MainNavBar = () => {
   const authCtx = useContext(AuthContext);
-
   const isLoggedIn = authCtx.isLoggedIn;
   const isAdmin = authCtx.isAdmin;
+  const navigate = useNavigate();
 
   const logoutHandler = () => {
     authCtx.logout();
+    navigate('/')
   };
   return (
     <header className="mainnavbarheader">
@@ -34,6 +35,11 @@ const MainNavBar = () => {
             <>
               <li>
                 <Link to="/requests/my-requests">בקשות</Link>
+              </li>
+              <li>
+              <Link to="/profile">
+                <img src={profileIcon} alt='פרופיל'/>
+                </Link>
               </li>
               <li>
                 <button onClick={logoutHandler}>התנתקות</button>

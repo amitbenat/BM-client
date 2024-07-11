@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
 import App from './App';
 import './index.css';
 import HomePage from './pages/HomePage';
@@ -12,6 +12,7 @@ import RequestsPage from './pages/RequeatsPage';
 import AdminRequestsPage from './pages/AdminRequestsPage';
 import AdminOpenRequestsPage from './pages/AdminOpenRequestsPage';
 import AdminHistoryRequestPage from './pages/AdminHistoryRequestPage';
+import ProfilePage from './pages/ProfilePage';
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <HomePage />,
+      },
+      {
+        path: '/profile',
+        element: <ProfilePage />,
       },
       {
         path: '/auth',
@@ -64,6 +69,10 @@ const router = createBrowserRouter([
             element: <NewRequestPage />,
           },
         ],
+      },
+      {
+        path: '*',
+        element: <Navigate to='/'/>,
       },
     ],
   },

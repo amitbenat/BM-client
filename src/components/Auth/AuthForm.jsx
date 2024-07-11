@@ -7,15 +7,43 @@ import axios from 'axios';
 const AuthForm = () => {
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
+  const newPasswordInputRef = useRef();
+  const authPasswordInputRef = useRef();
+  const forgotPasswordEmailRef = useRef();
   const nameInputRef = useRef();
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const [isForgotPassword, setIsForgetPassword] = useState(false);
   const navigate = useNavigate();
 
   const authCtx = useContext(AuthContext);
 
   const switchAuthModeHandler = () => {
     setIsLogin((prevState) => !prevState);
+  };
+
+  const forgotPasswordSubmitHandler = (event) => {
+    event.preventDefault();
+    const email = forgotPasswordEmailRef.current.value;
+    const newPassword =  newPasswordInputRef.current.value
+    const authPassword =  authPasswordInputRef.current.value
+    setIsLoading(true);
+    let url = `http://localhost:8080/users/forgot-password`;
+    axios
+      .patch(url, { email, newPassword, authPassword })
+      .then((res) => {
+        setIsLoading(false);
+        authCtx.login(res.data.token, res.data.user.isAdmin);
+        navigate('/');
+        return res.data;
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        alert(err.response.data);
+      });
+  };
+  const forgotPasswordHandler = () => {
+    setIsForgetPassword(true);
   };
 
   const submitHandler = (event) => {
@@ -35,7 +63,6 @@ const AuthForm = () => {
       };
     }
 
-    //validation
     setIsLoading(true);
     let url = `http://localhost:8080/users${isLogin ? `/login` : ''}`;
     axios
@@ -54,39 +81,93 @@ const AuthForm = () => {
 
   return (
     <section className="authform">
-      <h1>{isLogin ? 'התחברות' : 'הרשמות'}</h1>
-      <form onSubmit={submitHandler}>
-        {!isLogin && (
-          <div className="authformcontrol">
-            <label htmlFor="name">שם פרטי</label>
-            <input type="text" id="name" required ref={nameInputRef} />
-          </div>
-        )}
-        <div className="authformcontrol">
-          <label htmlFor="email">אימייל</label>
-          <input type="email" id="email" required ref={emailInputRef} />
-        </div>
-        <div className="authformcontrol">
-          <label htmlFor="password">סיסמה</label>
-          <input
-            type="password"
-            id="password"
-            required
-            ref={passwordInputRef}
-          />
-        </div>
-        <div className="authformactions">
-          {!isLoading && <button>{isLogin ? 'התחבר' : 'צור חשבון'}</button>}
-          {isLoading && <p>Loading...</p>}
-          <button
-            type="button"
-            className="toggleauth"
-            onClick={switchAuthModeHandler}
-          >
-            {isLogin ? 'צור משתמש חדש' : 'התחבר עם משתמש קיים'}
-          </button>
-        </div>
-      </form>
+      {!isForgotPassword && (
+        <>
+          <h1>{isLogin ? 'התחברות' : 'הרשמות'}</h1>
+          <form onSubmit={submitHandler}>
+            {!isLogin && (
+              <div className="authformcontrol">
+                <label htmlFor="name">שם פרטי</label>
+                <input type="text" id="name" required ref={nameInputRef} />
+              </div>
+            )}
+            <div className="authformcontrol">
+              <label htmlFor="email">כתובת אימייל</label>
+              <input type="email" id="email" required ref={emailInputRef} />
+            </div>
+            <div className="authformcontrol">
+              <label htmlFor="password">סיסמה</label>
+              <input
+                type="password"
+                id="password"
+                required
+                ref={passwordInputRef}
+              />
+            </div>
+            <div className="authformactions">
+              {!isLoading && <button>{isLogin ? 'התחבר' : 'צור חשבון'}</button>}
+              <button
+                type="button"
+                className="toggleauth"
+                onClick={forgotPasswordHandler}
+              >
+                שכחת סיסמה?
+              </button>
+              {isLoading && <p>Loading...</p>}
+              <button
+                type="button"
+                className="toggleauth"
+                onClick={switchAuthModeHandler}
+              >
+                {isLogin ? 'צור משתמש חדש' : 'התחבר עם משתמש קיים'}
+              </button>
+            </div>
+          </form>
+        </>
+      )}
+      {isForgotPassword && (
+        <>
+          <h1>שכחת סיסמה?</h1>
+          <form onSubmit={forgotPasswordSubmitHandler}>
+            <div className="authformcontrol">
+              <label htmlFor="email">כתובת אימייל</label>
+              <input
+                type="email"
+                id="email"
+                required
+                ref={forgotPasswordEmailRef}
+              />
+              <label htmlFor="newpassword">סיסמה חדשה</label>
+              <input
+                type="password"
+                id="newpassword"
+                required
+                ref={newPasswordInputRef}
+              />
+              <label htmlFor="authpassword">אימות סיסמה</label>
+              <input
+                type="password"
+                id="authpassword"
+                required
+                ref={authPasswordInputRef}
+              />
+            </div>
+            <div className="authformactions">
+              <button>עדכן סיסמה</button>
+              <div className="authformactions">
+                <button
+                  type="button"
+                  className="toggleauth"
+                  onClick={()=>{setIsForgetPassword(false)}}
+                >
+                  התחברות/הרשמות
+                </button>
+              </div>
+              {isLoading && <p>Loading...</p>}
+            </div>
+          </form>
+        </>
+      )}
     </section>
   );
 };
