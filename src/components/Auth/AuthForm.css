@@ -18,7 +18,10 @@
 .authformcontrol {
   margin-bottom: 0.5rem;
 }
-
+.authformcontrol.invalid input{
+  border-color: red;
+  background: #e09b9b;
+}
 .authformcontrol label {
   display: block;
   color: white;
