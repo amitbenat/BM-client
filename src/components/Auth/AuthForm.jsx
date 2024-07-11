@@ -11,6 +11,7 @@ const AuthForm = () => {
   const authPasswordInputRef = useRef();
   const forgotPasswordEmailRef = useRef();
   const nameInputRef = useRef();
+  const [hasError, setHasError] = useState(false)
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [isForgotPassword, setIsForgetPassword] = useState(false);
@@ -46,6 +47,9 @@ const AuthForm = () => {
     setIsForgetPassword(true);
   };
 
+  const changeHandler = () => {
+    setHasError(false)
+  }
   const submitHandler = (event) => {
     event.preventDefault();
     const enteredEmail = emailInputRef.current.value;
@@ -75,10 +79,11 @@ const AuthForm = () => {
       })
       .catch((err) => {
         setIsLoading(false);
-        alert(err.response.data);
+        setHasError(true)
       });
   };
 
+  const className = !hasError? "authformcontrol" : "authformcontrol invalid"
   return (
     <section className="authform">
       {!isForgotPassword && (
@@ -86,16 +91,16 @@ const AuthForm = () => {
           <h1>{isLogin ? 'התחברות' : 'הרשמות'}</h1>
           <form onSubmit={submitHandler}>
             {!isLogin && (
-              <div className="authformcontrol">
+              <div className={className}>
                 <label htmlFor="name">שם פרטי</label>
                 <input type="text" id="name" required ref={nameInputRef} />
               </div>
             )}
-            <div className="authformcontrol">
+            <div className={className}>
               <label htmlFor="email">כתובת אימייל</label>
               <input type="email" id="email" required ref={emailInputRef} />
             </div>
-            <div className="authformcontrol">
+            <div className={className}>
               <label htmlFor="password">סיסמה</label>
               <input
                 type="password"
@@ -105,6 +110,7 @@ const AuthForm = () => {
               />
             </div>
             <div className="authformactions">
+              {hasError&&<label>.נראה שמשהו השתבש. בדוק את תקינות הערכים שהזנת</label>}
               {!isLoading && <button>{isLogin ? 'התחבר' : 'צור חשבון'}</button>}
               <button
                 type="button"
@@ -118,7 +124,7 @@ const AuthForm = () => {
                 type="button"
                 className="toggleauth"
                 onClick={switchAuthModeHandler}
-              >
+                >
                 {isLogin ? 'צור משתמש חדש' : 'התחבר עם משתמש קיים'}
               </button>
             </div>
