@@ -4,7 +4,7 @@
   background-color: #658f68;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
   display: flex;
-  justify-content: center;
+  justify-content: right;
   align-items: center;
 }
 
@@ -17,17 +17,29 @@
 }
 
 .requestnavbarheader li {
-  margin: 0 2rem;
+  margin: 0 1rem;
   /* box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2); */
 }
 
-.requestnavbarheader a, select, option {
+.requestnavbarheader select {
+  border-radius: 30px;
+  background-color: rgb(150, 150, 184);
+  text-decoration: none;
+  color: rgb(67, 65, 57);
+  font-weight: bold;
+  width: 10rem;
+  padding: 1rem;
+  font-size: medium;
+  font-family: 'Open Sans', 'Lato', sans-serif;
+}
+.requestnavbarheader a, option {
   padding: 1rem;
   border-radius: 30px;
   background-color: rgb(150, 150, 184);
   text-decoration: none;
   color: rgb(67, 65, 57);
   font-weight: bold;
+  font-family: 'Open Sans', 'Lato', sans-serif;
 }
 
 .requestnavbarheader :hover {

@@ -19,8 +19,8 @@ const RequestsNavBar = (props) => {
             <Link to="/requests/my-requests">הבקשות שלי</Link>
           </li>
           <li>
-            <select value="בקשה חדשה" onChange={newRequestHandler}>
-              <option value="d">
+            <select value="בקשה חדשה" onChange={newRequestHandler} dir="rtl">
+              <option>
                 בקשה חדשה
               </option>
               <option value="בקשת השחרה">בקשת השחרה</option>
