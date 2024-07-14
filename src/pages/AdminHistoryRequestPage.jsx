@@ -5,6 +5,7 @@ import RequestsList from '../components/Requests/RequestsTable.jsx/RequestsList'
 import axios from 'axios';
 import AuthContext from '../store/auth-context';
 import AdminDateChange from '../components/Admin/AdminDateChange';
+import './AdminHistoryRequestPage.css'
 
 const AdminHistoryRequestPage = () => {
   const [requestsArray, setRequestsArray] = useState([]);
@@ -73,7 +74,7 @@ const AdminHistoryRequestPage = () => {
         <>
           <br />
           <Card>
-            <div className="adminopencontrol">
+            <div className="filter-control-history">
               <h3>כל הבקשות</h3>
               <div>
                 <button onClick={chooseDateHandler}>טווח תאריכים</button>
@@ -86,7 +87,7 @@ const AdminHistoryRequestPage = () => {
             />
             {totalPages > 0 && (
               <>
-                <div>
+                <div className='page-control'>
                   <button onClick={lastPageHandler} disabled={page <= 1}>
                     &lt;הקודם
                   </button>

@@ -11,7 +11,7 @@ const AuthForm = () => {
   const authPasswordInputRef = useRef();
   const forgotPasswordEmailRef = useRef();
   const nameInputRef = useRef();
-  const [hasError, setHasError] = useState(false)
+  const [hasError, setHasError] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [isForgotPassword, setIsForgetPassword] = useState(false);
@@ -26,8 +26,8 @@ const AuthForm = () => {
   const forgotPasswordSubmitHandler = (event) => {
     event.preventDefault();
     const email = forgotPasswordEmailRef.current.value;
-    const newPassword =  newPasswordInputRef.current.value
-    const authPassword =  authPasswordInputRef.current.value
+    const newPassword = newPasswordInputRef.current.value;
+    const authPassword = authPasswordInputRef.current.value;
     setIsLoading(true);
     let url = `http://localhost:8080/users/forgot-password`;
     axios
@@ -35,7 +35,7 @@ const AuthForm = () => {
       .then((res) => {
         setIsLoading(false);
         authCtx.login(res.data.token, res.data.user.isAdmin);
-        navigate('/');
+        navigate('/requests/my-requests');
         return res.data;
       })
       .catch((err) => {
@@ -48,8 +48,8 @@ const AuthForm = () => {
   };
 
   const changeHandler = () => {
-    setHasError(false)
-  }
+    setHasError(false);
+  };
   const submitHandler = (event) => {
     event.preventDefault();
     const enteredEmail = emailInputRef.current.value;
@@ -74,16 +74,16 @@ const AuthForm = () => {
       .then((res) => {
         setIsLoading(false);
         authCtx.login(res.data.token, res.data.user.isAdmin);
-        navigate('/');
+        navigate('/requests/my-requests');
         return res.data;
       })
       .catch((err) => {
         setIsLoading(false);
-        setHasError(true)
+        setHasError(true);
       });
   };
 
-  const className = !hasError? "authformcontrol" : "authformcontrol invalid"
+  const className = !hasError ? 'authformcontrol' : 'authformcontrol invalid';
   return (
     <section className="authform">
       {!isForgotPassword && (
@@ -93,12 +93,24 @@ const AuthForm = () => {
             {!isLogin && (
               <div className={className}>
                 <label htmlFor="name">שם פרטי</label>
-                <input type="text" id="name" required ref={nameInputRef} />
+                <input
+                  type="text"
+                  id="name"
+                  required
+                  ref={nameInputRef}
+                  onChange={changeHandler}
+                />
               </div>
             )}
             <div className={className}>
               <label htmlFor="email">כתובת אימייל</label>
-              <input type="email" id="email" required ref={emailInputRef} />
+              <input
+                type="email"
+                id="email"
+                required
+                ref={emailInputRef}
+                onChange={changeHandler}
+              />
             </div>
             <div className={className}>
               <label htmlFor="password">סיסמה</label>
@@ -107,10 +119,13 @@ const AuthForm = () => {
                 id="password"
                 required
                 ref={passwordInputRef}
+                onChange={changeHandler}
               />
             </div>
             <div className="authformactions">
-              {hasError&&<label>.נראה שמשהו השתבש. בדוק את תקינות הערכים שהזנת</label>}
+              {hasError && (
+                <label>נראה שמשהו השתבש. בדוק את תקינות הערכים שהזנת.</label>
+              )}
               {!isLoading && <button>{isLogin ? 'התחבר' : 'צור חשבון'}</button>}
               <button
                 type="button"
@@ -124,7 +139,7 @@ const AuthForm = () => {
                 type="button"
                 className="toggleauth"
                 onClick={switchAuthModeHandler}
-                >
+              >
                 {isLogin ? 'צור משתמש חדש' : 'התחבר עם משתמש קיים'}
               </button>
             </div>
@@ -164,7 +179,9 @@ const AuthForm = () => {
                 <button
                   type="button"
                   className="toggleauth"
-                  onClick={()=>{setIsForgetPassword(false)}}
+                  onClick={() => {
+                    setIsForgetPassword(false);
+                  }}
                 >
                   התחברות/הרשמות
                 </button>

@@ -14,11 +14,27 @@
   background-color: rgb(153, 76, 76);
 }
 
-.requestitem:button {
+.requestitem button {
   padding: 1rem;
   border-radius: 30px;
   text-decoration: none;
   color: rgb(11, 11, 8);
   font-weight: bold;
   font-family: 'Open Sans', 'Lato', sans-serif;
+}
+.rejected{
+  font-weight:bold;
+  color: rgb(152, 37, 37);
+}
+.waiting{
+  font-weight:bold;
+  color: rgb(71, 71, 71);
+}
+.accepted{
+  font-weight:bold;
+  color: rgb(57, 107, 52);
+}
+
+.no-description{
+  background-color: rgba(201, 201, 201, 0.514);
 }

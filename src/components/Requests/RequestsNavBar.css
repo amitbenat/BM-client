@@ -22,18 +22,23 @@
 }
 
 .requestnavbarheader select {
-  border-radius: 30px;
+  appearance: none;
+  width: 100%;
+  font-size: 1.15rem;
+  padding: 0.675em 6em 0.675em 1em;
+  background-color: #fff;
+  border-radius: 0.25rem;
+  color: #000;
+  cursor: pointer;
+  padding: 1rem;
   background-color: rgb(150, 150, 184);
   text-decoration: none;
   color: rgb(67, 65, 57);
   font-weight: bold;
-  width: 10rem;
-  padding: 1rem;
-  font-size: medium;
   font-family: 'Open Sans', 'Lato', sans-serif;
+  
 }
-.requestnavbarheader a,
-option {
+.requestnavbarheader a {
   padding: 1rem;
   border-radius: 30px;
   background-color: rgb(150, 150, 184);
@@ -41,8 +46,8 @@ option {
   color: rgb(67, 65, 57);
   font-weight: bold;
   font-family: 'Open Sans', 'Lato', sans-serif;
+  cursor: pointer;
+
 }
 
-.requestnavbarheader :hover {
-  color: #acb3ab;
-}
+

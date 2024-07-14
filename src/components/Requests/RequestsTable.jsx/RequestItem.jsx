@@ -19,6 +19,18 @@ const RequestItem = (props) => {
     props.openRejectHandler();
     props.setChosenRequestId(props.id);
   };
+  const statusClasses =
+    props.status === 'pending'
+      ? 'waiting'
+      : props.isValid
+      ? 'accepted'
+      : 'rejected';
+
+  const descriptionClasses =(props.tableType === 'close-client' ||
+  props.tableType === 'history-admin') && 
+    props.isValid === true || props.status === 'pending'
+      ? 'no-description'
+      : ''
 
   return (
     <tr key={props.id}>
@@ -28,7 +40,7 @@ const RequestItem = (props) => {
       <td>{props.description}</td>
       <td>{date}</td>
       {props.tableType !== 'open-admin' && (
-        <td>
+        <td className={statusClasses}>
           {props.status === 'pending'
             ? 'ממתין...'
             : props.isValid
@@ -38,14 +50,14 @@ const RequestItem = (props) => {
       )}
       {(props.tableType === 'close-client' ||
         props.tableType === 'history-admin') && (
-        <td>
+        <td className={descriptionClasses}>
           {props.isValid === true || props.status === 'pending'
-            ? '-----'
+            ? ''
             : props.reasonIfNeeded}
         </td>
       )}
       {props.tableType === 'open-admin' && (
-        <td className='requestitem'>
+        <td className="requestitem">
           <button className="accept" onClick={acceptHandler}>
             אישור
           </button>

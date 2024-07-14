@@ -5,3 +5,55 @@
   flex-direction: row;
   flex-wrap: nowrap;
 }
+
+.filter-control-open button{
+  padding: 1rem;
+  border-radius: 30px;
+  text-decoration: none;
+  color: rgb(11, 11, 8);
+  font-weight: bold;
+  font-family: 'Open Sans', 'Lato', sans-serif;
+}
+
+.filter-control-open{
+  width: 8rem;
+}
+
+
+.filter-control-open input,
+.filter-control-open textarea {
+  font: inherit;
+  padding: 0.35rem;
+  border-radius: 4px;
+  background-color: #f0f0f0;
+  border: 1px solid #2e663b;
+  display: block;
+  width: 30rem;
+  font-size: 1rem;
+  max-width: 30rem;
+  min-width: 30rem;
+  direction: rtl;
+}
+
+
+.filter-control-open .error-massage {
+  color: rgb(130, 43, 43);
+  font-weight: bold;
+}
+
+.filter-control-open select {
+  appearance: none;
+  font-size: 1.15rem;
+  padding: 0.675em 6em 0.675em 1em;
+  background-color: hsl(0, 0%, 100%);
+  border-radius: 0.25rem;
+  color: #000;
+  cursor: pointer;
+  padding: 1rem;
+  background-color: rgb(216, 216, 221);
+  text-decoration: none;
+  color: rgb(67, 65, 57);
+  font-weight: bold;
+  font-family: 'Open Sans', 'Lato', sans-serif;
+  
+}

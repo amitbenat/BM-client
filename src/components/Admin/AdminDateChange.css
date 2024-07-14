@@ -1,0 +1,14 @@
+.date-filter{
+    direction: ltr;
+}
+.date-filter button{
+    padding: 1rem;
+    border-radius: 30px;
+    text-decoration: none;
+    color: rgb(11, 11, 8);
+    font-weight: bold;
+    font-family: 'Open Sans', 'Lato', sans-serif;
+}
+.date-filter button:hover{
+    background-color: rgb(142, 146, 146);
+}

@@ -2,7 +2,6 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
 import App from './App';
 import './index.css';
-import HomePage from './pages/HomePage';
 import AuthPage from './pages/AuthPage';
 import { AuthContextProvider } from './store/auth-context';
 import PrortectedRoute from './components/Auth/ProtecetdRoute';
@@ -13,14 +12,15 @@ import AdminRequestsPage from './pages/AdminRequestsPage';
 import AdminOpenRequestsPage from './pages/AdminOpenRequestsPage';
 import AdminHistoryRequestPage from './pages/AdminHistoryRequestPage';
 import ProfilePage from './pages/ProfilePage';
+import ErrorPage from './pages/ErrorPage';
 
 const router = createBrowserRouter([
   {
     element: <App />,
     children: [
       {
-        path: '/',
-        element: <HomePage />,
+        path: '/404',
+        element: <ErrorPage />,
       },
       {
         path: '/profile',
@@ -72,7 +72,7 @@ const router = createBrowserRouter([
       },
       {
         path: '*',
-        element: <Navigate to='/'/>,
+        element: <Navigate to='/404'/>,
       },
     ],
   },
