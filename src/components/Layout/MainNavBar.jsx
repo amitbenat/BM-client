@@ -1,30 +1,24 @@
 import { Link, useNavigate } from 'react-router-dom';
-import profileIcon from '../../utils/profileIcon.png';
+import profileIcon from '../../assets/media/profileIcon.png';
 import './MainNavBar.css';
 import { useContext } from 'react';
 import AuthContext from '../../store/auth-context';
 
 const MainNavBar = () => {
   const authCtx = useContext(AuthContext);
-  const isLoggedIn = authCtx.isLoggedIn;
-  const isAdmin = authCtx.isAdmin;
+  const {isLoggedIn, isAdmin, logout} = authCtx;
   const navigate = useNavigate();
 
   const logoutHandler = () => {
-    authCtx.logout();
+    logout();
     navigate('/auth');
   };
   return (
-    <header className="mainnavbarheader">
-      <h3 className="mainnavbarlogo"> מערך בטחון המידע</h3>
+    <header className="main-navbar-header">
+      <h3 className="main-navbar-logo"> מערך בטחון המידע</h3>
 
-      <nav>
+      <nav className='main-navbar-nav'>
         <ul>
-          {!isLoggedIn && (
-            <li>
-              <Link to="/auth">התחברות</Link>
-            </li>
-          )}
           {isAdmin && (
             <li>
               <Link to="/admin/open-requests">ניהול בקשות</Link>

@@ -1,11 +1,12 @@
 import { useContext, useEffect, useState } from 'react';
-import LoadingSpinner from '../components/UI/LoadingSpinner';
-import Card from '../components/UI/Card';
+import LoadingSpinner from '../components/generic/LoadingSpinner';
+import Card from '../components/generic/Card';
 import RequestsList from '../components/Requests/RequestsTable.jsx/RequestsList';
 import axios from 'axios';
 import AuthContext from '../store/auth-context';
 import AdminDateChange from '../components/Admin/AdminDateChange';
-import './AdminHistoryRequestPage.css'
+import './AdminHistoryRequestPage.css';
+import PORT from '../EnviromentVars';
 
 const AdminHistoryRequestPage = () => {
   const [requestsArray, setRequestsArray] = useState([]);
@@ -42,9 +43,9 @@ const AdminHistoryRequestPage = () => {
   useEffect(() => {
     setIsLoading(true);
     const { startDate, endDate } = dateRange[0];
-    let url = `http://localhost:8080/admin-history-requests?${
-      startDate && `startdate=${startDate.toISOString()}`
-    }${endDate && `&enddate=${endDate.toISOString()}`}&page=${page}`;
+    let url = `${PORT}/admin-history-requests?${
+      startDate && `startDateVar=${startDate.toISOString()}`
+    }${endDate && `&endDateVar=${endDate.toISOString()}`}&page=${page}`;
     axios
       .get(url, {
         headers: {
@@ -59,14 +60,13 @@ const AdminHistoryRequestPage = () => {
       })
       .catch((err) => {
         setIsLoading(false);
-        alert(err.response.data);
       });
   }, [authCtx.token, dateRange, page]);
 
   return (
     <>
       {isLoading && (
-        <div className="requestformloading">
+        <div className="request-form-loading">
           <LoadingSpinner />
         </div>
       )}
@@ -87,7 +87,7 @@ const AdminHistoryRequestPage = () => {
             />
             {totalPages > 0 && (
               <>
-                <div className='page-control'>
+                <div className="page-control">
                   <button onClick={lastPageHandler} disabled={page <= 1}>
                     &lt;הקודם
                   </button>

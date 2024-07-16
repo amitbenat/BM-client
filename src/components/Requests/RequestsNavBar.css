@@ -1,4 +1,4 @@
-.requestnavbarheader {
+.request-navbar-header {
   width: 100%;
   height: 5rem;
   background-color: #658f68;
@@ -8,7 +8,7 @@
   align-items: center;
 }
 
-.requestnavbarheader ul {
+.request-navbar-header ul {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -16,12 +16,12 @@
   align-items: baseline;
 }
 
-.requestnavbarheader li {
+.request-navbar-header li {
   margin: 0 1rem;
   /* box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2); */
 }
 
-.requestnavbarheader select {
+.request-navbar-header select {
   appearance: none;
   width: 100%;
   font-size: 1.15rem;

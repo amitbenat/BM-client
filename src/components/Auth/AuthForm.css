@@ -1,4 +1,4 @@
-.authform {
+.auth-form {
   margin: 3rem auto;
   width: 95%;
   max-width: 29rem;
@@ -10,26 +10,26 @@
   color: white;
 }
 
-.authform h1 {
+.auth-form h1 {
   text-align: center;
   color: white;
 }
 
-.authformcontrol {
+.auth-form-control {
   margin-bottom: 0.5rem;
 }
-.authformcontrol.invalid input{
+.auth-form-control.invalid input{
   border-color: red;
   background: #e09b9b;
 }
-.authformcontrol label {
+.auth-form-control label {
   display: block;
   color: white;
   font-weight: bold;
   margin-bottom: 0.5rem;
 }
 
-.authformcontrol input {
+.auth-form-control input {
   font: inherit;
   background-color: #e3e3e3;
   color: #38015c;
@@ -40,14 +40,14 @@
   padding: 0.25rem;
 }
 
-.authformactions {
+.auth-form-actions {
   margin-top: 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.authformactions button {
+.auth-form-actions button {
   cursor: pointer;
   font: inherit;
   color: white;
@@ -57,12 +57,12 @@
   padding: 0.5rem 2.5rem;
 }
 
-.authformactions button:hover {
+.auth-form-actions button:hover {
   background-color: #873abb;
   border-color: #873abb;
 }
 
-.authformactions .toggleauth {
+.auth-form-actions .toggle-auth {
   margin-top: 1rem;
   background-color: transparent;
   color: #1e652a;
@@ -70,7 +70,7 @@
   padding: 0.15rem 1.5rem;
 }
 
-.authformactions .toggleauth:hover {
+.auth-form-actions .toggle-auth:hover {
   background-color: transparent;
   color: #ae82cc;
 }

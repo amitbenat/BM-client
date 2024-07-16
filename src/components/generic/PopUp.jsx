@@ -1,4 +1,4 @@
-import './Modal.css';
+import './PopUp.css';
 import ReactDOM from 'react-dom';
 
 const Backdrop = (props) => {
@@ -7,7 +7,7 @@ const Backdrop = (props) => {
 
 const ModalOverlay = (props) => {
   return (
-    <div className="modal">
+    <div className="popup">
       <div className="content">{props.children}</div>
     </div>
   );
@@ -15,7 +15,7 @@ const ModalOverlay = (props) => {
 
 const portalElement = document.getElementById('overlays');
 
-const Modal = (props) => {
+const PopUp = (props) => {
   return (
     <>
       {ReactDOM.createPortal(
@@ -30,4 +30,4 @@ const Modal = (props) => {
   );
 };
 
-export default Modal;
+export default PopUp;

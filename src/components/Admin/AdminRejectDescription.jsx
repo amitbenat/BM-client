@@ -1,6 +1,6 @@
 import { useContext, useRef } from 'react';
-import Modal from '../UI/Modal';
-import { AdminUpdateRequest } from './AdminUpdateRequest';
+import PopUp from '../generic/PopUp';
+import { adminUpdateRequest } from './adminUpdateRequest';
 import AuthContext from '../../store/auth-context';
 const AdminRejectDescription = (props) => {
   const descriptionInputRef = useRef();
@@ -8,7 +8,7 @@ const AdminRejectDescription = (props) => {
   const authCtx = useContext(AuthContext);
 
   const submitFormHandler = () => {
-    AdminUpdateRequest(
+    adminUpdateRequest(
       false,
       props.chosenRequestId,
       authCtx,
@@ -22,14 +22,14 @@ const AdminRejectDescription = (props) => {
     );
   };
   return (
-    <Modal onClose={props.onClose}>
+    <PopUp onClose={props.onClose}>
       <button onClick={props.onClose}>X</button>
       <h3>תיאור סיבת דחייה</h3>
       <form>
         <textarea type="text" ref={descriptionInputRef} />
       </form>
       <button onClick={submitFormHandler}>דחיית הבקשה</button>
-    </Modal>
+    </PopUp>
   );
 };
 

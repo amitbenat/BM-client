@@ -1,11 +1,12 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import RequestsList from '../components/Requests/RequestsTable.jsx/RequestsList';
-import Card from '../components/UI/Card';
+import Card from '../components/generic/Card';
 import AuthContext from '../store/auth-context';
 import axios from 'axios';
-import LoadingSpinner from '../components/UI/LoadingSpinner';
+import LoadingSpinner from '../components/generic/LoadingSpinner';
 import './AdminOpenRequestsPage.css';
 import AdminRejectDescription from '../components/Admin/AdminRejectDescription';
+import PORT from '../EnviromentVars';
 
 const AdminOpenRequestsPage = () => {
   const [isRejectDescriptionOpen, setIsRejectDescriptionOpen] = useState(false);
@@ -32,6 +33,7 @@ const AdminOpenRequestsPage = () => {
   };
 
   useEffect(() => {
+    setIsEmailValid(true)
     let params;
     if (isFilterByType) {
       params = {
@@ -45,7 +47,7 @@ const AdminOpenRequestsPage = () => {
       };
     }
     setIsLoading(true);
-    let url = `http://localhost:8080/admin-open-requests`;
+    let url = `${PORT}/admin-open-requests`;
     axios
       .get(url, {
         headers: {
@@ -57,19 +59,17 @@ const AdminOpenRequestsPage = () => {
         setIsLoading(false);
         setRequestsArray(res.data.requests);
         setIsEmailValid(res.data.isEmailValid);
-        console.log(res);
         return res.data;
       })
       .catch((err) => {
         setIsLoading(false);
-        alert(err.response.data);
       });
   }, [authCtx.token, requestTypeFilter, count]);
 
   return (
     <>
       {isLoading && (
-        <div className="requestformloading">
+        <div className="request-form-loading">
           <LoadingSpinner />
         </div>
       )}
@@ -77,65 +77,66 @@ const AdminOpenRequestsPage = () => {
         <>
           <br />
           <Card>
-            <div className='filter-control-open'>
-
-            <button
-              onClick={() => {
-                setIsFilterByType((prev) => !prev);
-                setIsEmailValid(true);
-              }}
+            <div className="filter-control-open">
+              <button
+                onClick={() => {
+                  setIsFilterByType((prev) => !prev);
+                  setIsEmailValid(true);
+                }}
               >
-              {!isFilterByType ? 'סנן לפי סוג בקשה' : 'סנן לפי אימייל'}
-            </button>
-            <div>
-              {!isFilterByType && (
-                <form className="adminopencontrol">
-                  <label htmlFor="email">כתובת אימייל</label>
-                  <input
-                    type="email"
-                    id="email"
-                    required
-                    ref={searchEmailInputRef}
+                {!isFilterByType ? 'סנן לפי סוג בקשה' : 'סנן לפי אימייל'}
+              </button>
+              <div>
+                {!isFilterByType && (
+                  <form className="admin-open-control">
+                    <label htmlFor="email">כתובת אימייל</label>
+                    <input
+                      type="email"
+                      id="email"
+                      required
+                      ref={searchEmailInputRef}
                     />
-                  <button
-                    onClick={(event) => {
-                      event.preventDefault();
-                      setCount((prevCount) => prevCount + 1);
-                      setRequestTypeFilter('הכל');
-                      setIsEmailValid(true);
-                    }}
+                    <button
+                      onClick={(event) => {
+                        event.preventDefault();
+                        setCount((prevCount) => prevCount + 1);
+                        setRequestTypeFilter('הכל');
+                        setIsEmailValid(true);
+                      }}
                     >
-                    סנן
-                  </button>
-                </form>
-              )}
-              {isFilterByType && (
-                <select
-                  onChange={onChangeHandler}
-                  value={requestTypeFilter}
-                  dir="rtl"
+                      סנן
+                    </button>
+                  </form>
+                )}
+                {isFilterByType && (
+                  <select
+                    onChange={onChangeHandler}
+                    value={requestTypeFilter}
+                    dir="rtl"
                   >
-                  <option value="הכל">הכל</option>
-                  <option value="בקשת השחרה">בקשת השחרה</option>
-                  <option value="בקשת אישור כניסה רגלי">
-                    בקשת אישור כניסה רגלי
-                  </option>
-                  <option value="בקשת אישור כניסה רכוב">
-                    בקשת אישור כניסה רכוב
-                  </option>
-                  <option value="בקשת קידוד חוגר">בקשת קידוד חוגר</option>
-                  <option value='בקשת טופס חתימה על שו"ס'>
-                    בקשת טופס חתימה על שו"ס
-                  </option>
-                </select>
-              )}
-              {!isEmailValid && <p className='error-massage'>לא נמצאו בקשות מאימייל זה</p>}
+                    <option value="הכל">הכל</option>
+                    <option value="בקשת השחרה">בקשת השחרה</option>
+                    <option value="בקשת אישור כניסה רגלי">
+                      בקשת אישור כניסה רגלי
+                    </option>
+                    <option value="בקשת אישור כניסה רכוב">
+                      בקשת אישור כניסה רכוב
+                    </option>
+                    <option value="בקשת קידוד חוגר">בקשת קידוד חוגר</option>
+                    <option value='בקשת טופס חתימה על שו"ס'>
+                      בקשת טופס חתימה על שו"ס
+                    </option>
+                  </select>
+                )}
+                {!isEmailValid && (
+                  <p className="error-massage">לא נמצאו בקשות מאימייל זה</p>
+                )}
+              </div>
+              <br />
             </div>
-            <br />
-                  </div>
           </Card>
           <Card>
-            <div className="adminopencontrol">
+            <div className="admin-open-control">
               <h3>בקשות פתוחות לאישור קב"מ</h3>
             </div>
 

@@ -1,36 +1,43 @@
 import { useContext, useEffect, useState } from 'react';
 import AuthContext from '../store/auth-context';
-import Card from '../components/UI/Card';
-import LoadingSpinner from '../components/UI/LoadingSpinner';
+import Card from '../components/generic/Card';
+import LoadingSpinner from '../components/generic/LoadingSpinner';
 import axios from 'axios';
+import PORT from '../EnviromentVars';
+import './ProfilePage.css'
 
 const ProfilePage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const authCtx = useContext(AuthContext);
   const submitHandler = () => {
     setIsLoading(true);
-    let url = `http://localhost:8080/users/me`;
+    let url = `${PORT}/users/me`;
     axios
-      .patch(url, { email },{
-        headers: {
-          Authorization: `Bearer ${authCtx.token}`,
-        },
-      })
+      .patch(
+        url,
+        { email },
+        {
+          headers: {
+            Authorization: `Bearer ${authCtx.token}`,
+          },
+        }
+      )
       .then((res) => {
         setIsLoading(false);
-        console.log(res);
+        setErrorMessage('אימייל שונה בהצלחה!');
         return res.data;
       })
       .catch((err) => {
         setIsLoading(false);
-        alert(err.response.data);
+        setErrorMessage(err.response.data);
       });
   };
   useEffect(() => {
     setIsLoading(true);
-    let url = `http://localhost:8080/users/me`;
+    let url = `${PORT}/users/me`;
     axios
       .get(url, {
         headers: {
@@ -39,20 +46,20 @@ const ProfilePage = () => {
       })
       .then((res) => {
         setIsLoading(false);
-        console.log(res);
         setEmail(res.data.email);
         return res.data;
       })
       .catch((err) => {
         setIsLoading(false);
-        alert(err.response.data);
       });
   }, [authCtx.token]);
+
+  const classes = errorMessage === 'אימייל שונה בהצלחה!'? 'valid': 'invalid'
 
   return (
     <>
       {isLoading && (
-        <div className="requestformloading">
+        <div className="request-form-loading">
           <LoadingSpinner />
         </div>
       )}
@@ -61,17 +68,18 @@ const ProfilePage = () => {
           <br />
           <Card>
             <h3>עדכון כתובת אימייל</h3>
-            <form className="authformcontrol" onSubmit={submitHandler}>
-              <label htmlFor="newemail">כתובת אימייל</label>
+            <form className="auth-form-control" onSubmit={submitHandler}>
+              <label htmlFor="new-email">כתובת אימייל</label>
               <input
                 type="email"
-                id="newemail"
+                id="new-email"
                 defaultValue={email}
                 onChange={(event) => {
                   setEmail(event.target.value);
                 }}
                 required
               />
+              {errorMessage && <p className={classes}>{errorMessage}</p>}
               <button>עדכון</button>
             </form>
           </Card>

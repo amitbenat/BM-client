@@ -1,9 +1,10 @@
 import { useContext, useEffect, useState } from 'react';
 import RequestsList from '../components/Requests/RequestsTable.jsx/RequestsList';
-import Card from '../components/UI/Card';
+import Card from '../components/generic/Card';
 import AuthContext from '../store/auth-context';
 import axios from 'axios';
-import LoadingSpinner from '../components/UI/LoadingSpinner';
+import LoadingSpinner from '../components/generic/LoadingSpinner';
+import PORT from '../EnviromentVars';
 
 const MyRequestsPage = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -13,7 +14,7 @@ const MyRequestsPage = () => {
   const authCtx = useContext(AuthContext);
   useEffect(() => {
     setIsLoading(true);
-    let url = `http://localhost:8080/requests`;
+    let url = `${PORT}/requests`;
     axios
       .get(url, {
         headers: {
@@ -39,13 +40,12 @@ const MyRequestsPage = () => {
       })
       .catch((err) => {
         setIsLoading(false);
-        alert(err.response.data);
       });
   }, [authCtx.token]);
   return (
     <>
       {isLoading && (
-        <div className="requestformloading">
+        <div className="request-form-loading">
           <LoadingSpinner />
         </div>
       )}

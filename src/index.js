@@ -2,7 +2,7 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
 import App from './App';
 import './index.css';
-import AuthPage from './pages/AuthPage';
+import AuthForm from './components/Auth/AuthForm';
 import { AuthContextProvider } from './store/auth-context';
 import PrortectedRoute from './components/Auth/ProtecetdRoute';
 import MyRequestsPage from './pages/MyRequestsPage';
@@ -19,10 +19,6 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: '/404',
-        element: <ErrorPage />,
-      },
-      {
         path: '/profile',
         element: <ProfilePage />,
       },
@@ -30,7 +26,7 @@ const router = createBrowserRouter([
         path: '/auth',
         element: (
           <PrortectedRoute isProtected={false}>
-            <AuthPage />
+            <AuthForm />
           </PrortectedRoute>
         ),
       },
@@ -72,7 +68,7 @@ const router = createBrowserRouter([
       },
       {
         path: '*',
-        element: <Navigate to='/404'/>,
+        element: <ErrorPage/>,
       },
     ],
   },

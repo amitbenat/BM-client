@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './AuthForm.css';
 import AuthContext from '../../store/auth-context';
 import axios from 'axios';
+import PORT from '../../EnviromentVars';
 
 const AuthForm = () => {
   const emailInputRef = useRef();
@@ -15,6 +16,7 @@ const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [isForgotPassword, setIsForgetPassword] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(false);
   const navigate = useNavigate();
 
   const authCtx = useContext(AuthContext);
@@ -29,7 +31,7 @@ const AuthForm = () => {
     const newPassword = newPasswordInputRef.current.value;
     const authPassword = authPasswordInputRef.current.value;
     setIsLoading(true);
-    let url = `http://localhost:8080/users/forgot-password`;
+    let url = `${PORT}/users/forgot-password`;
     axios
       .patch(url, { email, newPassword, authPassword })
       .then((res) => {
@@ -40,16 +42,9 @@ const AuthForm = () => {
       })
       .catch((err) => {
         setIsLoading(false);
-        alert(err.response.data);
       });
   };
-  const forgotPasswordHandler = () => {
-    setIsForgetPassword(true);
-  };
 
-  const changeHandler = () => {
-    setHasError(false);
-  };
   const submitHandler = (event) => {
     event.preventDefault();
     const enteredEmail = emailInputRef.current.value;
@@ -68,7 +63,7 @@ const AuthForm = () => {
     }
 
     setIsLoading(true);
-    let url = `http://localhost:8080/users${isLogin ? `/login` : ''}`;
+    let url = `${PORT}/users${isLogin ? `/login` : ''}`;
     axios
       .post(url, currentUserDetails)
       .then((res) => {
@@ -78,14 +73,18 @@ const AuthForm = () => {
         return res.data;
       })
       .catch((err) => {
+        console.log(err.response.data);
+        setErrorMessage(err.response.data);
         setIsLoading(false);
         setHasError(true);
       });
   };
 
-  const className = !hasError ? 'authformcontrol' : 'authformcontrol invalid';
+  const className = hasError
+    ? 'auth-form-control invalid'
+    : 'auth-form-control';
   return (
-    <section className="authform">
+    <section className="auth-form">
       {!isForgotPassword && (
         <>
           <h1>{isLogin ? 'התחברות' : 'הרשמות'}</h1>
@@ -98,7 +97,7 @@ const AuthForm = () => {
                   id="name"
                   required
                   ref={nameInputRef}
-                  onChange={changeHandler}
+                  onChange={() => setHasError(false)}
                 />
               </div>
             )}
@@ -109,7 +108,7 @@ const AuthForm = () => {
                 id="email"
                 required
                 ref={emailInputRef}
-                onChange={changeHandler}
+                onChange={() => setHasError(false)}
               />
             </div>
             <div className={className}>
@@ -119,25 +118,24 @@ const AuthForm = () => {
                 id="password"
                 required
                 ref={passwordInputRef}
-                onChange={changeHandler}
+                onChange={() => setHasError(false)}
               />
             </div>
-            <div className="authformactions">
-              {hasError && (
-                <label>נראה שמשהו השתבש. בדוק את תקינות הערכים שהזנת.</label>
-              )}
+            {!isLogin && <p>הקפד על סיסמה מעל 7 תווים</p>}
+            <div className="auth-form-actions">
+              {hasError && <p>{errorMessage}</p>}
               {!isLoading && <button>{isLogin ? 'התחבר' : 'צור חשבון'}</button>}
               <button
                 type="button"
-                className="toggleauth"
-                onClick={forgotPasswordHandler}
+                className="toggle-auth"
+                onClick={() => setIsForgetPassword(true)}
               >
                 שכחת סיסמה?
               </button>
               {isLoading && <p>Loading...</p>}
               <button
                 type="button"
-                className="toggleauth"
+                className="toggle-auth"
                 onClick={switchAuthModeHandler}
               >
                 {isLogin ? 'צור משתמש חדש' : 'התחבר עם משתמש קיים'}
@@ -150,7 +148,7 @@ const AuthForm = () => {
         <>
           <h1>שכחת סיסמה?</h1>
           <form onSubmit={forgotPasswordSubmitHandler}>
-            <div className="authformcontrol">
+            <div className="auth-form-control">
               <label htmlFor="email">כתובת אימייל</label>
               <input
                 type="email"
@@ -173,12 +171,12 @@ const AuthForm = () => {
                 ref={authPasswordInputRef}
               />
             </div>
-            <div className="authformactions">
+            <div className="auth-form-actions">
               <button>עדכן סיסמה</button>
-              <div className="authformactions">
+              <div className="auth-form-actions">
                 <button
                   type="button"
-                  className="toggleauth"
+                  className="toggle-auth"
                   onClick={() => {
                     setIsForgetPassword(false);
                   }}

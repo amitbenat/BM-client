@@ -1,10 +1,11 @@
 import { useContext, useRef, useState } from 'react';
-import Card from '../../UI/Card';
-import LoadingSpinner from '../../UI/LoadingSpinner';
+import Card from '../../generic/Card';
+import LoadingSpinner from '../../generic/LoadingSpinner';
 import './RequestForm.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../../../store/auth-context';
+import PORT from '../../../EnviromentVars';
 
 const RequestForm = (props) => {
   const authCtx = useContext(AuthContext);
@@ -12,10 +13,10 @@ const RequestForm = (props) => {
   const [selectedOption, setSelectedOption] = useState('');
   const descriptionInputRef = useRef();
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState('')
+  const [hasError, setHasError] = useState(false)
 
-  const changeHandler = (event) => {
-    setSelectedOption(event.target.value);
-  };
+
   function submitFormHandler(event) {
     event.preventDefault();
     let type = props.requestType;
@@ -36,7 +37,7 @@ const RequestForm = (props) => {
     };
 
     setIsLoading(true);
-    let url = `http://localhost:8080/requests`;
+    let url = `${PORT}/requests`;
     axios
       .post(url, requestDetails, {
         headers: {
@@ -49,35 +50,39 @@ const RequestForm = (props) => {
         return res.data;
       })
       .catch((err) => {
+        console.log(err.response.data);
         setIsLoading(false);
-        alert(err.response.data);
+        setHasError(true)
+        setErrorMessage(err.response.data)
       });
   }
 
   return (
-    <div className="requestformcard">
+    <div className="request-form-card">
       <Card>
-        <form className="requestformform" onSubmit={submitFormHandler}>
+        <form className="request-form-form" onSubmit={submitFormHandler}>
           {isLoading && (
-            <div className="requestformloading">
+            <div className="request-form-loading">
               <LoadingSpinner />
             </div>
           )}
           {props.requestType && (
             <>
-              <h3 className="requestformform">{props.requestType}</h3>
-              <div className="requestformcontrol">
+              <h3 className="request-form-form">{props.requestType}</h3>
+              <div className="request-formc-ontrol">
                 {props.requestType === 'בקשת אישור כניסה רגלי/רכוב לבה"ד' && (
                   <>
                     <label htmlFor="type">סוג אישור כניסה:</label>
-                    <div className="requestformentertype">
+                    <div className="request-form-enter-type">
                       <input
                         type="radio"
                         id="walk"
                         name="transportation"
                         value="walk"
                         checked={selectedOption === 'walk'}
-                        onChange={changeHandler}
+                        onChange={(event) =>
+                          setSelectedOption(event.target.value)
+                        }
                       />
                       <label htmlFor="walk">רגלי</label>
                       <input
@@ -86,7 +91,8 @@ const RequestForm = (props) => {
                         name="transportation"
                         value="drive"
                         checked={selectedOption === 'drive'}
-                        onChange={changeHandler}
+                        onChange={(event) =>
+                          setSelectedOption(event.target.value)}
                       />
                       <label htmlFor="drive">רכוב</label>
                     </div>
@@ -100,7 +106,8 @@ const RequestForm = (props) => {
                   ref={descriptionInputRef}
                 />
               </div>
-              <div className="requestformactions">
+              {hasError && <p>{errorMessage}</p>}
+              <div className="request-form-actions">
                 <button className="btn">שלח בקשה</button>
               </div>
             </>

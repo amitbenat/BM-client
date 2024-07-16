@@ -1,12 +1,16 @@
-import Card from '../components/UI/Card'
-import './ErrorPage.css'
-const ErrorPage = () => {
-    return(
-        <Card>
-        <h3>404</h3>
-        <p>אופס, נראה שהלכת לאיבוד. לא קיים עמוד כזה.</p>
-        </Card>
-    )
-}
+import { useContext } from "react";
+import { Navigate } from "react-router-dom";
+import AuthContext from "../store/auth-context";
 
-export default ErrorPage
+const ErrorPage = ({ children }) => {
+  const authCtx = useContext(AuthContext);
+  const isLoggedIn = authCtx.isLoggedIn;
+
+
+    if (isLoggedIn) {
+      return <Navigate to="/requests/my-requests" />;
+    }
+    return <Navigate to="/auth" />;
+};
+
+export default ErrorPage;

@@ -3,7 +3,7 @@ import './AdminNavBar.css';
 
 const RequestsNavBar = (props) => {
   return (
-    <header className="requestnavbarheader">
+    <header className="request-navbar-header">
       <nav>
         <ul>
           <li>

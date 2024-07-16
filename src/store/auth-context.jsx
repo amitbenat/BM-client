@@ -20,14 +20,9 @@ const retrieveStoredToken = () => {
 
 export const AuthContextProvider = (props) => {
   const tokenData = retrieveStoredToken();
-  let initiallToken;
-  let initiallAdmin;
-  if (tokenData) {
-    initiallToken = tokenData.token;
-    initiallAdmin = tokenData.isAdmin === 'true';
-  }
-  const [token, setToken] = useState(initiallToken);
-  const [isAdmin, setIsAdmin] = useState(initiallAdmin);
+
+  const [token, setToken] = useState(tokenData.token);
+  const [isAdmin, setIsAdmin] = useState(tokenData.isAdmin === 'true');
   const userIsLoggedIn = !!token;
 
   const logoutHandler = useCallback(() => {

@@ -29,16 +29,9 @@ const RequestsList = (props) => {
               {props.requestsArray.map((request) => {
                 return (
                   <RequestItem
+                    request={request}
                     key={request._id}
-                    id={request._id}
-                    type={request.type}
-                    description={request.description}
-                    status={request.status}
-                    date={request.createdAt}
-                    isValid={request.isValid}
                     tableType={props.tableType}
-                    reasonIfNeeded={request.reasonIfNeeded}
-                    email={request.owner.email}
                     setRequestsArray={props.setRequestsArray}
                     requestsArray={props.requestsArray}
                     openRejectHandler={props.openRejectHandler}

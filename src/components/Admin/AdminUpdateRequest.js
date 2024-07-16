@@ -1,6 +1,7 @@
 import axios from 'axios';
+import PORT from '../../EnviromentVars';
 
-export const AdminUpdateRequest = (isAccept, id, authCtx, desc) => {
+export const adminUpdateRequest = (isAccept, id, authCtx, desc) => {
   let currentRequestDetails = {
     status: 'closed',
     isValid: true,
@@ -13,7 +14,7 @@ export const AdminUpdateRequest = (isAccept, id, authCtx, desc) => {
     };
   }
 
-  let url = `http://localhost:8080/admin-open-requests/${id}`;
+  let url = `${PORT}/admin-open-requests/${id}`;
   axios
     .patch(url, currentRequestDetails, {
       headers: {
@@ -24,6 +25,5 @@ export const AdminUpdateRequest = (isAccept, id, authCtx, desc) => {
       return res.data;
     })
     .catch((err) => {
-      alert(err);
     });
 };
